@@ -1,0 +1,4 @@
+<aura:event type="COMPONENT" description="Event template" >
+	<aura:attribute name="field" type="String" />
+	<aura:attribute name="sortOrder" type="String" />
+</aura:event>

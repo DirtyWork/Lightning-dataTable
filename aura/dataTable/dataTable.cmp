@@ -1,0 +1,86 @@
+<!--
+ - Created by Gabriel Takei on 25.1.2017.
+ -->
+
+<aura:component controller="DataTableController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global">
+
+    <!-- ############### Design attributes ################ -->
+    <aura:attribute name="title" type="String" default="Hello" access="global" />
+    <aura:attribute name="sObj" type="String" access="global" default="Opportunity"/>
+    <aura:attribute name="fields" type="String" access="global" default="Name,CreatedDate"/>
+    <aura:attribute name="clause" type="String" access="global" default="Amount > 100000"/>
+    <aura:attribute name="sortBy" type="String" access="global" default="Name"/>
+    <aura:attribute name="recPerPage" type="Integer" access="global" default="10"/>
+    <aura:attribute name="showPagePicklist" type="Boolean" access="global" default="true"/>
+    <aura:attribute name="listOfRecPerPageValues" type="String" access="global" default="10,20,30,40,50"/>
+    <aura:attribute name="recordLink" type="Boolean" access="global" default="false"/>
+    <aura:attribute name="recordIdObject" type="String" access="global" />
+    <aura:attribute name="sortOrder" type="String" default="DESC" access="global"/>
+    <!-- ############### Design attributes ################ -->
+
+    <aura:attribute name="recPerPageList" type="Integer[]" />
+    <aura:attribute name="pageList" type="List"/>
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer"/>
+    <aura:attribute name="data" type="String[]" access="global" />
+    <aura:attribute name="fieldAPIs" type="String[]" access="global" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:dependency resource="markup://force:showToast" type="EVENT" />
+    <aura:handler event="force:showToast" action="{!c.doInit}" />
+    <aura:handler name="dataTablePageChangeEvent" event="c:dataTablePageChangeEvent" action="{!c.pageChange}"/>
+    <aura:handler name="dataTableSortEvent" event="c:dataTableSortEvent" action="{!c.sortTable}"/>
+
+    <aura:if isTrue="{!v.data.length > 0}">
+        <div style="slds-scope">
+            <h1 class="slds-page-header__title">{!v.title}</h1>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped slds-max-medium-table_stacked">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <aura:if isTrue="{!v.recordLink}">
+                            <th>
+
+                            </th>
+                        </aura:if>
+                        <aura:iteration items="{!v.fieldAPIs}" var="field">
+                            <c:dataTableTableHeader field="{!field}" sobj="{!v.sObj}" sortField="{!v.sortBy}" sortOrder="{!v.sortOrder}"/>
+                        </aura:iteration>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.data}" var="item">
+                        <tr>
+                            <c:dataTableRow data="{!item}" linkIcon="{!v.recordLink}" />
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+
+            <aura:if isTrue="{!v.showPagePicklist}">
+                <div class="slds-grid slds-grid_align-spread slds-m-top_xx-small">
+                    <lightning:select name="Records per page"
+                            label="Records per page"
+                            value="{!v.recPerPage}"
+                            onchange="{!c.recordsPerPage}"
+                            aura:id="recsPerPage">
+                        <aura:iteration items="{!v.recPerPageList}" var="rec">
+                            <option value="{!rec}">{!rec}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                    <c:dataTablePaginate page="{!v.page}" pages="{!v.pages}" total="{!v.total}"  />
+                </div>
+                <aura:set attribute="else">
+                    <div class="slds-grid slds-grid_align-center">
+                        <c:dataTablePaginate page="{!v.page}" pages="{!v.pages}" total="{!v.total}" />
+                    </div>
+                </aura:set>
+            </aura:if>
+
+            <lightning:spinner aura:id="mySpinner"
+                size="small"
+                variant="brand"
+                alternativeText="Loading..."
+                class="slds-hide"/>
+        </div>
+    </aura:if>
+</aura:component>

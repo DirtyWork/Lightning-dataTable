@@ -1,0 +1,17 @@
+<!--
+ - Created by Takei on 25.1.2017.
+ -->
+
+<design:component >
+    <design:attribute name="title" label="Title" description="Title of table" />
+    <design:attribute name="sObj" label="sObject (FROM) *REQUIRED*" description="API name of sObject" />
+    <design:attribute name="fields" label="fields (SELECT) *REQUIRED*" description="Comma separated API name of fields" />
+    <design:attribute name="clause" label="clause (WHERE)" description="SOQL WHERE clause, do not include word WHERE in the beginning" />
+    <design:attribute name="sortBy" label="Initial sort by *REQUIRED*" description="Sort by field, give API name" />
+    <design:attribute name="sortOrder" label="Initial sort order" description="Type ASC or DESC" />
+    <design:attribute name="recPerPage" label="Records per page *REQUIRED*" description="How many records will be shown on a page" />
+    <design:attribute name="showPagePicklist" label="Show records per page picklist" description="When checked the tool will show picklist for users to change how many records per page are showed." />
+    <design:attribute name="listOfRecPerPageValues" label="Records per page picklist values" description="Comma separated values eg: 10,20,30,40,50" />
+    <design:attribute name="recordLink" label="Display icon/link to record" description="If checked 1st column will have icon link to the record page" />
+    <design:attribute name="recordIdObject" label="Related object field name" description="API Name of the related object of the record, for example 'AccountId'. Use this field if you want to use the table as a related list. Leave blank if you dont use it. NOTE: only usable on pages where recordId is available." />
+</design:component>

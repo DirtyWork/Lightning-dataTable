@@ -1,0 +1,18 @@
+<aura:component access="global">
+	<aura:attribute name="data" type="String" access="global" />
+	<aura:attribute name="dataset" type="String[]" access="global" />
+	<aura:attribute name="linkIcon" type="Boolean" access="global" />
+	<aura:attribute name="recordId" type="String" access="global" />
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+	<aura:if isTrue="{!v.linkIcon}">
+		<td class="slds-truncate">
+			<a href="{!'/' + v.recordId}" target="_blank">
+				<lightning:icon aura:id="down" iconName="utility:description" size="small" alternativeText="Go to record page"/>
+			</a>
+		</td>
+	</aura:if>
+	<aura:iteration items="{!v.dataset}" var="d">
+		<c:dataTableCell data="{!d}" recordId="{!v.recordId}" /> 
+	</aura:iteration>
+</aura:component>

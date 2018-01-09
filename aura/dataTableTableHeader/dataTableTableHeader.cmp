@@ -1,0 +1,19 @@
+<aura:component controller="DataTableController">
+	<aura:attribute name="field" type="String" access="global"/>
+	<aura:attribute name="sobj" type="String" access="global"/>
+	<aura:attribute name="sortOrder" type="String" access="global" />
+	<aura:attribute name="sortField" type="String" access="global" />
+	<aura:attribute name="fieldLabel" type="String" access="global"/>
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:handler name="change" value="{!v.sortField}" action="{!c.removeArrow}" />
+	<aura:registerEvent name="dataTableSortEvent" type="c:dataTableSortEvent"/>
+
+	<th scope="col" class="slds-is-sortable slds-text-title_caps" onclick="{!c.sortTable}" >
+	    <span style="float:left;" class="slds-truncate" title="{!v.fieldLabel}">{!v.fieldLabel}</span>
+	    <span>
+			<lightning:icon class="slds-hide" aura:id="up" iconName="utility:arrowup" size="x-small" alternativeText="ascending order"/>
+			<lightning:icon class="slds-hide" aura:id="down" iconName="utility:arrowdown" size="x-small" alternativeText="descending order"/>
+		</span>
+	</th>
+
+</aura:component>

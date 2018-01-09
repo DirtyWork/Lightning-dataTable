@@ -1,0 +1,7 @@
+<!--
+ - Created by gabriel on 3/10/17.
+ -->
+
+<aura:event type="COMPONENT" description="dataTablePageChangeEvent">
+    <aura:attribute name="direction" type="String"/>
+</aura:event>

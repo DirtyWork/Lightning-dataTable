@@ -1,0 +1,26 @@
+<!--
+ - Created by gabriel on 3/10/17.
+ -->
+
+<aura:component access="global">
+    <aura:attribute name="page" type="integer"/>
+    <aura:attribute name="pages" type="integer"/>
+    <aura:attribute name="total" type="integer"/>
+    <aura:registerEvent name="dataTablePageChangeEvent" type="c:dataTablePageChangeEvent"/>
+
+    <div class="slds-form-element slds-p-top_small">
+        <lightning:button label="Previous"
+                variant="brand"
+                iconPosition="left"
+                onclick="{!c.previousPage}"
+                disabled="{!v.page == 1}"/>
+
+        &nbsp;{!v.total}&nbsp;Records • Page&nbsp;{!v.page} / {!v.pages} &nbsp;
+
+        <lightning:button label="Next"
+                variant="brand"
+                iconPosition="right"
+                onclick="{!c.nextPage}"
+                disabled="{!v.page >= v.pages}"/>
+    </div>
+</aura:component>

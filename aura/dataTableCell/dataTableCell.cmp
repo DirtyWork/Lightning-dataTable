@@ -1,0 +1,25 @@
+<aura:component access="global">
+	<aura:attribute name="data" type="String" access="global" />
+	<aura:attribute name="field" type="String" access="global" />
+	<aura:attribute name="fieldValue" type="String" access="global" />
+	<aura:attribute name="fieldType" type="String" access="global" />
+	<aura:attribute name="recordId" type="String" access="global" />
+    <aura:attribute name="dateField" type="Date" access="global" />
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+	<td class="slds-truncate">
+        <aura:if isTrue="{!v.fieldType == 'DATE' || v.fieldType == 'DATETIME'}">
+            <div class="slds-truncate" title="{!v.fieldValue}" ondblclick="{!c.dblclick}">
+                <aura:if isTrue="{!v.fieldValue != 'null'}">
+                    <lightning:formattedDateTime value="{!v.dateField}" year="numeric" month="short" day="2-digit"/>
+                    <aura:set attribute="else">
+                        No date
+                    </aura:set>
+                </aura:if>
+            </div>
+            <aura:set attribute="else">
+                <div class="slds-truncate" title="{!v.fieldValue}" ondblclick="{!c.dblclick}">{!v.fieldValue}</div>
+            </aura:set>
+        </aura:if>
+	</td>
+</aura:component>
